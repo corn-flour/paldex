@@ -7,7 +7,7 @@ const POKEMON_SPECIES_API = "https://pokeapi.co/api/v2/pokemon-species"
 const OFFICIAL_ART_URL =
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork"
 
-export const pokemonTypes = [
+const pokemonTypes = [
     "normal",
     "fighting",
     "flying",
