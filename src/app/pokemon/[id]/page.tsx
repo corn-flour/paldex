@@ -125,6 +125,16 @@ const pokemonSpeciesSchema = z
         }
     })
 
+const fetchPokemonEntry = async (id: string) => {
+    const pokemonResponse = await fetch(`${POKEMON_ENTRY_API}/${id}`)
+    return pokemonEntrySchema.parse(await pokemonResponse.json())
+}
+
+const fetchPokemonSpecies = async (id: string) => {
+    const pokemonSpeciesResponse = await fetch(`${POKEMON_SPECIES_API}/${id}`)
+    return pokemonSpeciesSchema.parse(await pokemonSpeciesResponse.json())
+}
+
 const PokemonInfoPage = async ({
     params,
 }: {
@@ -132,15 +142,10 @@ const PokemonInfoPage = async ({
         id: string
     }
 }) => {
-    const pokemonResponse = await fetch(`${POKEMON_ENTRY_API}/${params.id}`)
-    const pokemonSpeciesResponse = await fetch(
-        `${POKEMON_SPECIES_API}/${params.id}`
-    )
-
-    const pokemonEntry = pokemonEntrySchema.parse(await pokemonResponse.json())
-    const pokemonSpecies = pokemonSpeciesSchema.parse(
-        await pokemonSpeciesResponse.json()
-    )
+    const [pokemonEntry, pokemonSpecies] = await Promise.all([
+        fetchPokemonEntry(params.id),
+        fetchPokemonSpecies(params.id),
+    ])
 
     return (
         <>
