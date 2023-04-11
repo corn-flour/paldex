@@ -18,11 +18,11 @@ const PokemonVirtualList = ({
     return (
         <VirtuosoGrid
             useWindowScroll
-            className="mx-auto w-[90%] max-w-6xl"
+            className="bg-shelf mx-auto mt-8 box-content h-screen w-[90%] max-w-6xl px-1 pb-32"
             overscan={400}
             data={data}
             initialItemCount={12}
-            listClassName="bg-shelf mt-8 flex flex-wrap justify-center gap-x-8 gap-y-16 px-1 !pb-32 sm:gap-y-40"
+            listClassName="flex flex-wrap justify-center gap-x-8 gap-y-16 sm:gap-y-40"
             itemClassName="group relative transition-all hover:-translate-y-4 focus:!-translate-y-4 focus:outline-none"
             itemContent={(index) => <PokemonCard {...data[index]} />}
         />
