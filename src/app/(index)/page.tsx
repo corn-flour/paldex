@@ -1,4 +1,3 @@
-import { Inter } from "next/font/google"
 import { z } from "zod"
 import PokemonVirtualList from "./pokemon-list"
 
@@ -32,13 +31,5 @@ export default async function Home() {
 
     const pokedex = pokedexSchema.parse(await response.json())
 
-    return (
-        <>
-            <h1 className="pt-16 text-center text-4xl font-bold uppercase tracking-widest text-white">
-                Pokédex
-            </h1>
-
-            <PokemonVirtualList data={pokedex.pokemon_entries} />
-        </>
-    )
+    return <PokemonVirtualList data={pokedex.pokemon_entries} />
 }

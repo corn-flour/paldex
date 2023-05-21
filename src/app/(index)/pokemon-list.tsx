@@ -3,6 +3,9 @@
 import { VirtuosoGrid } from "react-virtuoso"
 import Link from "next/link"
 import Image from "next/image"
+import { useSearchParams } from "next/navigation"
+
+const MAX_INITIAL_COUNT = 12
 
 // Virtualized list to render list of Pokemon entries
 // use react-virtuoso underneath
@@ -15,16 +18,27 @@ const PokemonVirtualList = ({
         artworkURL: string
     }[]
 }) => {
+    const searchParams = useSearchParams()
+    const nameQuery = searchParams.get("name")
+    const filteredList = nameQuery
+        ? data.filter((entry) => entry.name.startsWith(nameQuery))
+        : data
+
+    const initialCount =
+        filteredList.length < MAX_INITIAL_COUNT
+            ? filteredList.length
+            : MAX_INITIAL_COUNT
+
     return (
         <VirtuosoGrid
             useWindowScroll
             className="bg-shelf mx-auto mt-8 box-content h-screen w-[90%] max-w-6xl px-1 pb-32"
             overscan={400}
-            data={data}
-            initialItemCount={12}
+            data={filteredList}
+            initialItemCount={initialCount}
             listClassName="flex flex-wrap justify-center gap-x-8 gap-y-16 sm:gap-y-40"
             itemClassName="group relative transition-all hover:-translate-y-4 focus:!-translate-y-4 focus:outline-none"
-            itemContent={(index) => <PokemonCard {...data[index]} />}
+            itemContent={(index) => <PokemonCard {...filteredList[index]} />}
         />
     )
 }
