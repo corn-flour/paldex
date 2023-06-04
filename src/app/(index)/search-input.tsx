@@ -23,8 +23,8 @@ const SearchInput = () => {
     }, 300)
 
     return (
-        <form>
-            <label className="mx-auto my-4">
+        <form className="mx-auto my-4">
+            <label>
                 <span className="sr-only">Search</span>
                 <input
                     type="text"
